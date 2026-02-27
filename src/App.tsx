@@ -1,8 +1,27 @@
-import React from 'react';
-import { motion } from 'motion/react';
-import { Calendar, Clock, MapPin, Music, Star, Ticket, ExternalLink, Sparkles, PartyPopper, ChevronDown } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { Calendar, Clock, MapPin, Music, Star, Ticket, ExternalLink, Sparkles, PartyPopper, ChevronDown, ArrowUp } from 'lucide-react';
 
 export default function App() {
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-deep-bg text-slate-200 selection:bg-gold-500/30 selection:text-gold-200">
       {/* Elegant Background - Image & Overlay */}
@@ -76,7 +95,7 @@ export default function App() {
           <SectionHeader title="The Celebration" subtitle="Special Moments" />
           <p className="text-lg md:text-xl text-slate-300 leading-loose font-light max-w-3xl mx-auto">
             함께 춤추고 웃으며 만들어온 지난 2년.<br/>
-            그 소중한 시간들을 기념하며, 최고의 댄서들과 함께하는<br/>
+            그 소중한 시간들을 기념하며, <br className="md:hidden" />최고의 댄서들과 함께하는<br/>
             화려한 퍼포먼스와 워크샵을 준비했습니다.
           </p>
         </section>
@@ -233,6 +252,22 @@ export default function App() {
           © 2026 2nd Anniversary. All rights reserved.
         </p>
       </footer>
+
+      {/* Scroll to Top Button */}
+      <AnimatePresence>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 z-50 p-3 bg-gold-500 text-deep-bg rounded-full shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:bg-gold-400 transition-colors"
+            aria-label="Scroll to top"
+          >
+            <ArrowUp className="w-6 h-6" />
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
