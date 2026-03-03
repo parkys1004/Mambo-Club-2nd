@@ -243,6 +243,33 @@ export default function App() {
           </motion.div>
         </section>
 
+        {/* Sponsorship Section */}
+        <section className="text-center pb-12">
+          <motion.div 
+            whileHover={{ scale: 1.02 }}
+            className="max-w-3xl mx-auto bg-gradient-to-r from-purple-900/20 to-deep-surface border border-purple-500/20 rounded-3xl p-8 md:p-10 shadow-xl"
+          >
+            <div className="flex flex-col items-center gap-4">
+              <Star className="w-8 h-8 text-gold-400 mb-2" />
+              <h3 className="text-2xl font-serif text-white mb-2">Sponsorship</h3>
+              <p className="text-slate-300 font-light leading-relaxed mb-6">
+                맘보 클럽 2주년을 맞이하여<br className="md:hidden" />
+                공연 환경 개선을 위한 협찬금을 모금합니다.
+              </p>
+              <a
+                href="https://band.us/band/61527284/post/11499"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-flex items-center gap-3 px-10 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold text-lg tracking-wide rounded-full overflow-hidden transition-all hover:from-purple-500 hover:to-pink-500 shadow-[0_0_20px_rgba(168,85,247,0.4)] hover:shadow-[0_0_30px_rgba(168,85,247,0.6)]"
+              >
+                <span className="relative z-10 flex items-center gap-2">
+                  협찬하기 <ExternalLink className="w-5 h-5" />
+                </span>
+              </a>
+            </div>
+          </motion.div>
+        </section>
+
       </div>
 
       {/* Footer */}
