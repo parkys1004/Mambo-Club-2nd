@@ -170,14 +170,18 @@ export default function App() {
           <SectionHeader title="Tickets" subtitle="Join the Party" />
           
           <div className="mt-12 bg-deep-surface border border-white/5 rounded-2xl overflow-hidden shadow-2xl">
-            {/* Early Bird Header */}
-            <div className="bg-gradient-to-r from-gold-600/20 to-gold-400/10 p-4 text-center border-b border-white/5">
-              <span className="text-gold-300 font-medium tracking-wide text-sm">✨ EARLY BIRD (3/15 까지)</span>
+            {/* Early Bird Header - Closed State */}
+            <div className="bg-red-900/20 p-4 text-center border-b border-red-500/20 relative overflow-hidden">
+              <div className="absolute inset-0 bg-red-500/5 animate-pulse"></div>
+              <span className="relative z-10 text-red-400 font-bold tracking-[0.2em] text-sm flex items-center justify-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                EARLY BIRD 마감 (SOLD OUT)
+              </span>
             </div>
 
-            <div className="p-8 md:p-12 space-y-8">
-              <TicketRow label="파티 예매" price="15,000" sub="얼리버드 특가" highlight />
-              <TicketRow label="파티 + 워크샵" price="20,000" sub="얼리버드 특가" highlight />
+            <div className="p-8 md:p-12 space-y-8 opacity-60 grayscale-[0.5]">
+              <TicketRow label="파티 예매" price="15,000" sub="얼리버드 특가 (종료)" highlight={false} strike />
+              <TicketRow label="파티 + 워크샵" price="20,000" sub="얼리버드 특가 (종료)" highlight={false} strike />
               
               <div className="h-px bg-white/5 my-8"></div>
               
@@ -330,15 +334,15 @@ function ProgramRow({ team, type }: { team: string, type: string }) {
   );
 }
 
-function TicketRow({ label, price, sub, highlight = false }: { label: string, price: string, sub: string, highlight?: boolean }) {
+function TicketRow({ label, price, sub, highlight = false, strike = false }: { label: string, price: string, sub: string, highlight?: boolean, strike?: boolean }) {
   return (
-    <div className="flex items-center justify-between">
+    <div className={`flex items-center justify-between ${strike ? 'opacity-50' : ''}`}>
       <div>
-        <h4 className={`text-lg ${highlight ? 'text-gold-200 font-medium' : 'text-slate-300'}`}>{label}</h4>
+        <h4 className={`text-lg ${highlight ? 'text-gold-200 font-medium' : 'text-slate-300'} ${strike ? 'line-through' : ''}`}>{label}</h4>
         <p className="text-xs text-slate-500 mt-1">{sub}</p>
       </div>
       <div className="text-right">
-        <span className={`text-xl font-serif ${highlight ? 'text-gold-400' : 'text-slate-400'}`}>{price}</span>
+        <span className={`text-xl font-serif ${highlight ? 'text-gold-400' : 'text-slate-400'} ${strike ? 'line-through' : ''}`}>{price}</span>
         <span className="text-xs text-slate-600 ml-1">KRW</span>
       </div>
     </div>
